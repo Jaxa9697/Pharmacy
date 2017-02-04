@@ -1,0 +1,99 @@
+<div id="listOfJournal">
+    <table id="template_table" class="center">
+        <tr id="table_header">
+            <td id="number">№</td>
+            <td>Дата</td>
+            <td>Наименованые лекарстви</td>
+            <td>Количество</td>
+            <td>Сумма</td>
+            <td>
+                <select title="" id="filter" form="addComing">
+                    <option value="all">Все записи</option>
+                    <option value="today">Сегоднящные записи</option>
+                    <option value="yesterday">Вчерашные записи</option>
+                    <option value="currentWeek">Текущая неделя</option>
+                    <option value="lastWeek">Прошлая неделя</option>
+                    <option value="currentMonth">Текущий месяц</option>
+                    <option value="lastMonth">Прошлый месяц</option>
+                </select>
+            </td>
+        </tr>
+        <form id="addSale" name="addSale">
+            <tr id="comingsForm">
+                <td></td>
+                <td  class="dates" >
+                    <input type="date" readonly name="date" title="" form="addSale">
+                </td>
+                <td>
+                    <input type="text" list="medicines" name="medicines" title="" form="addSale">
+                    <datalist id="medicines">
+                        {{#each medicine}}
+                            <p class="hide">{{id}}</p><option>{{name}}</option><p class="hide">{{remainder}}</p>
+                        {{/each}}
+                    </datalist>
+                </td>
+                <td class="numberField">
+                    <input type="number" name="quantity" placeholder="Max: " title="" form="addSale">
+                </td>
+                <td class="tdSumma">
+                    <label>
+                        <input type="checkbox"  form="addSale" name="typeSale">Кредит
+                    </label>
+                    <textarea class="hidden"  form="addSale" minlength="10" name="creditDesc" placeholder="минимум 10 символов"></textarea>
+                </td>
+                <td>
+                    <button id="addNewSale" class="btn btn2" form="addSale">Добавить </button>
+                    <button id="updateSale" class="btn btn2 hidden" form="addSale">Сохранить</button>
+                </td>
+            </tr>
+        </form>
+        {{#each coming}}
+            <tr>
+                <td>{{number}}</td>
+                <td class="dates" >{{date}}</td>
+                <td id="name">{{name}}</td>
+                <td>{{quantity}}</td>
+                <td>
+                    <p class="hidden">{{creditDesc}}</p>
+                    <p class="summa">{{summa}}</p>
+                    <p class="hidden">{{payed}}</p>
+                    <p class="hidden">{{credit}}</p>
+                </td>
+                <td class="settingsOfSales">
+                    <p class="hidden">{{id}}</p>
+                </td>
+            </tr>
+        {{/each}}
+        <tr id="pages" class="hidden">
+            <td colspan="6">
+                Страницы
+                {{#each page}}
+                    <div class="pages">
+                        <p class="hide">{{currentPage}}</p><a>{{number}}</a>
+                    </div>
+                {{/each}}
+            </td>
+        </tr>
+    </table>
+</div>
+<!--<div id="pages">-->
+    <!--Страницы-->
+    <!--<p class="pages">-->
+        <!--<a>1</a>-->
+    <!--</p>-->
+    <!--<p class="pages">-->
+        <!--<a>2</a>-->
+    <!--</p>-->
+    <!--<p class="pages">-->
+        <!--<a>3</a>-->
+    <!--</p>-->
+    <!--<p class="pages">-->
+        <!--<a>4</a>-->
+    <!--</p>-->
+    <!--<p class="pages">-->
+        <!--<a>5</a>-->
+    <!--</p>-->
+    <!--<p class="pages">-->
+        <!--<a>6</a>-->
+    <!--</p>-->
+<!--</div>-->

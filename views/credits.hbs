@@ -1,0 +1,51 @@
+<div id="listOfJournal">
+    <table id="template_table" class="center">
+        <tr id="table_header">
+            <td id="number">№</td>
+            <td>Дата</td>
+            <td>Наименованые лекарстви</td>
+            <td>Сумма</td>
+            <td>Описание</td>
+            <td>
+                <select title="" id="filter" form="addComing">
+                    <option value="all">Все записи</option>
+                    <option value="today">Сегоднящные записи</option>
+                    <option value="yesterday">Вчерашные записи</option>
+                    <option value="currentWeek">Текущая неделя</option>
+                    <option value="lastWeek">Прошлая неделя</option>
+                    <option value="currentMonth">Текущий месяц</option>
+                    <option value="lastMonth">Прошлый месяц</option>
+                </select>
+            </td>
+        </tr>
+        {{#each coming}}
+            <tr>
+                <td>{{number}}</td>
+                <td class="dates" >{{date}}</td>
+                <td id="name">{{name}}</td>
+                <td>
+                    {{summa}}
+                </td>
+                <td>{{creditDesc}}</td>
+                <td class="settingsOfCredits">
+                    <label>
+                        <p class="hidden">{{payed}}</p>
+                        <input type="checkbox" name="payed" class="payed">Оплачено
+                    </label>
+                    <img class="save" src="/images/save.png">
+                    <p class="hidden">{{id}}</p>
+                </td>
+            </tr>
+        {{/each}}
+        <tr id="pages" class="hidden">
+            <td colspan="6">
+                Страницы
+                {{#each page}}
+                    <div class="pages">
+                        <p class="hide">{{currentPage}}</p><a>{{number}}</a>
+                    </div>
+                {{/each}}
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,75 @@
+<div id="filterReport">
+    <form>
+        <select title="" id="filter" form="addComing">
+            <option value="today">Сегоднящные записи</option>
+            <option value="yesterday">Вчерашные записи</option>
+            <option value="currentWeek">Текущая неделя</option>
+            <option value="lastWeek">Прошлая неделя</option>
+            <option value="currentMonth">Текущий месяц</option>
+            <option value="lastMonth">Прошлый месяц</option>
+            <option value="all">Все записи</option>
+        </select>
+            Показать с <input title="" type="date" class="reportDate" name="from">
+            до <input title="" type="date" class="reportDate" name="still">
+            <button class="btn btn3" id="send">>> >></button>
+    </form>
+</div>
+<div id="listOfJournal">
+    <table id="template_table" class="center">
+        <tr id="headerReport">
+            <td colspan="6">Оплаченные</td>
+        </tr>
+        <tr id="table_header">
+            <td id="number">№</td>
+            <td>Наименованые лекарстви</td>
+            <td>Количество</td>
+            <td>Цена</td>
+            <td>Сумма</td>
+        </tr>
+        {{#each payed}}
+            <tr>
+                <td>{{number}}</td>
+                <td id="name">{{name}}</td>
+                <td>{{quantity}}</td>
+                <td>{{price}}</td>
+                <td>{{sum}}</td>
+            </tr>
+        {{/each}}
+        <tr>
+            <td></td>
+            <td>Итого</td>
+            <td>{{totalQuantity}}</td>
+            <td></td>
+            <td>{{totalSum}}</td>
+        </tr>
+        <tr></tr>
+    </table>
+    <table id="template_table" class="center">
+        <tr id="headerReport">
+            <td colspan="6">Неоплаченные(кредиты)</td>
+        </tr>
+        <tr id="table_header">
+            <td id="number">№</td>
+            <td>Наименованые лекарстви</td>
+            <td>Количество</td>
+            <td>Цена</td>
+            <td>Сумма</td>
+        </tr>
+        {{#each credit}}
+            <tr>
+                <td>{{number}}</td>
+                <td id="name">{{name}}</td>
+                <td>{{quantity}}</td>
+                <td>{{price}}</td>
+                <td>{{sum}}</td>
+            </tr>
+        {{/each}}
+        <tr>
+            <td></td>
+            <td>Итого</td>
+            <td>{{totalQuantityC}}</td>
+            <td></td>
+            <td>{{totalSumC}}</td>
+        </tr>
+    </table>
+</div>

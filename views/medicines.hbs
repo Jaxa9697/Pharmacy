@@ -1,0 +1,46 @@
+
+<div id="FormFilter">
+    <form id="search" name="search" action="search" method="get" >
+        <input type="search" id="textSearch" list="search" name="query" placeholder="Поиск лекарств по имени и цене" >
+        <button name="addRecord" id="addMedicine" class="btn btn2">Новое лекарство</button>
+    </form>
+</div>
+<div id="listOfMedicine">
+    {{#each medicine}}
+    <table class="MedicineBox">
+        <tr>
+            <td rowspan="7"  class="medicines">
+                <img src="{{photo}}" class="photos">
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Имя:</td>
+            <td class="tdName">{{name}}</td>
+        </tr>
+        <tr>
+            <td>Цена:</td>
+            <td>{{price}}</td>
+        </tr>
+        <tr>
+            <td>Остаток:</td>
+            <td>{{remainder}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="settingsOfMedicine">
+                <p class="hidden">{{id}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    {{/each}}
+</div>
