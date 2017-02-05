@@ -67,3 +67,6 @@ module.exports = app;
 
 console.log('Server has runned at port 1337');
 // app.listen(1337);
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+});
