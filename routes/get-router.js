@@ -8,7 +8,7 @@ var Medicine = require("../models/medicines"),
     CreditController = require("../controllers/credit-controller"),
     ReportController = require("../controllers/report-controller"),
     main = require("../controllers/common-functions"),
-    router = require("index"),
+    router = require("./app"),
     mongoose = require('mongoose');
 
 router.get('/getContent', function (req, res) {

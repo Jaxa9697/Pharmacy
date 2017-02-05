@@ -9,7 +9,7 @@ var Medicine = require("../models/medicines"),
     Sale = require("../models/sales"),
     CreditController = require("../controllers/credit-controller"),
     main =  require("../controllers/common-functions"),
-    router = require("index"),
+    router = require("./app"),
     mongoose = require('mongoose');
 
 router.post('/addMedicine',  function (req, res) {
