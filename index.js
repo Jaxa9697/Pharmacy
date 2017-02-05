@@ -1,7 +1,9 @@
 var express = require('express'),
     path = require('path'),
     cookieParser = require('cookie-parser'),
+    cookieSession = require('cookie-session'),
     bodyParser = require('body-parser'),
+    url = require('url'),
     templates = require('consolidate');
 
 var appRoutes = require('./routes/app'),
@@ -14,12 +16,17 @@ app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public/images', 'icon.png')));
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb',extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cookieSession({
+    name: 'session',
+    keys: ['Jaxa9696', '16031997'],
+    maxAge: 7 * 24 * 60 * 60 * 1000
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
@@ -65,7 +72,7 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 
-console.log('Server has runned at port 1337');
+// console.log('Server? has runned at port 1337');
 // app.listen(1337);
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));

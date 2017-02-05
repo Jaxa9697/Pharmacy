@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
                     }else{
                         signIn.hide(600);
                         content.html(json);
-                        content.css("height", "0px");
+                        // content.css("height", "0px");
                         scriptForMenu();
                     }
                 },
@@ -179,6 +179,7 @@ jQuery(document).ready(function() {
         setInterval('setDate();', 1000);
         var linkOfMenu = $('#menu a'),
             contentMedicines = $('#contentBody');
+            content.css("height", "0px");
 
         function getContent(href) {
             loading.removeClass('hidden');
@@ -226,15 +227,12 @@ jQuery(document).ready(function() {
             searchText = $('input[name="query"]');
         var medicinePhotos = document.getElementsByClassName('photos'), arrHeights = [];
         var  k = 0;
-        console.log(medicinePhotos);
         for (var i=0; i < medicinePhotos.length; i++){
             medicinePhotos[i].onload = function () {
                 arrHeights.push(this.parentElement.parentElement.parentElement.parentElement.scrollHeight);
                 k++;
                 if (k == medicinePhotos.length - 1) {
                     var maxHeight = Math.max.apply(null, arrHeights);
-                    console.log(arrHeights);
-                    console.log(maxHeight);
                     var medicineBoxes = document.getElementsByClassName('MedicineBox');
                     for (var j=0; j < medicineBoxes.length; j++){
                         medicineBoxes[j].style.height = maxHeight + 'px';

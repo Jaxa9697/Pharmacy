@@ -33,9 +33,11 @@
         </tr>
         <tr>
             <td></td>
-            <td class="settingsOfMedicine">
-                <p class="hidden">{{id}}</p>
-            </td>
+            {{#if admin}}
+                <td class="settingsOfMedicine">
+                    <p class="hidden">{{id}}</p>
+                </td>
+            {{/if}}
         </tr>
         <tr>
             <td></td>

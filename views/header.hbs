@@ -3,7 +3,9 @@
     <ul id="menu">
         <li><a href="medicines">Лекарствы</a></li>
         <li><a href="sales">Последные продажи</a></li>
-        <li><a href="comings">Журнал приходов</a></li>
+        {{#if admin}}
+            <li><a href="comings">Журнал приходов</a></li>
+        {{/if}}
         <li><a href="credits">Кредиты</a></li>
         <li><a href="reports">Отчеты </a></li>
     </ul>

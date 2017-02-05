@@ -4,17 +4,87 @@
 var main = require("./common-functions"),
     Report = require("../models/reports");
 
+
+setInterval(function () {
+    // var data = main.filterOption();
+    var start = new Date(Date.now());
+    start.setMinutes(0,0,0);
+    var end = new Date(Date.now());
+    end.setMinutes(59,59,999);
+    var data = {
+        start: start,
+        end: end
+    };
+
+    var match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: false}};
+    Report.createReportForToday(match, function(coming) {
+        if (coming){
+            var report = new Report.model({
+                date: main.dateConverter(coming[i].date),
+                name: coming[i].medicine,
+                quantity: coming[i].quantity,
+                price: coming[i].price,
+                totalSum: coming[i].totalSum,
+                credit: false
+            });
+
+            report.save(function (err) {
+                if (err) throw err;
+            });
+
+            match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: true, payed: true}};
+            Report.createReportForToday(match, function(coming) {
+                if (coming) {
+                    var report = new Report.model({
+                        date: main.dateConverter(coming[i].date),
+                        name: coming[i].medicine,
+                        quantity: coming[i].quantity,
+                        price: coming[i].price,
+                        totalSum: coming[i].totalSum,
+                        credit: false
+                    });
+
+                    report.save(function (err) {
+                        if (err) throw err;
+                    });
+
+                    match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: true, payed: false}};
+                    Report.createReportForToday(match, function (coming) {
+                        if (coming) {
+                            var report = new Report.model({
+                                date: main.dateConverter(coming[i].date),
+                                name: coming[i].medicine,
+                                quantity: coming[i].quantity,
+                                price: coming[i].price,
+                                totalSum: coming[i].totalSum,
+                                credit: true
+                            });
+
+                            report.save(function (err) {
+                                if (err) throw err;
+                            });
+                        }
+                    });
+                }
+            });
+        }else {
+            res.json({message: "error"});
+        }
+    });
+}, 60 * 60 * 1000);
+
 module.exports = {
     listOfTodaysSales: function (res, save) {
-        var data = main.filterOption();
-        // var start = new Date(2017,1,1,0,0,0,0);
-        //     start.setHours(0,0,0,0);
-        // var end = new Date(2017,1,1,23,59,59,59);
-        //     end.setHours(23,59,59,999);
-        // var data = {
-        //     start: start,
-        //     end: end
-        // };
+        // var data = main.filterOption();
+        var start = new Date(Date.now());
+            start.setMinutes(0,0,0);
+        var end = new Date(Date.now());
+            end.setMinutes(59,59,999);
+        var data = {
+            start: start,
+            end: end
+        };
+
         var match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: false}};
         Report.createReportForToday(match, function(coming) {
             if (coming){

@@ -14,7 +14,7 @@ var Medicine = require("../models/medicines"),
 router.get('/getContent', function (req, res) {
 
     if(req.query.content == 'medicines'){
-        MedicineController.listOfMedicines(res);
+        MedicineController.listOfMedicines(req, res);
     }else if (req.query.content == 'comings'){
         ComingController.listOfComings(res);
     }else if (req.query.content == 'sales'){
@@ -22,7 +22,11 @@ router.get('/getContent', function (req, res) {
     }else if (req.query.content == 'credits'){
         CreditController.listOfCredits(res);
     }else if (req.query.content == 'reports'){
-        ReportController.listOfTodaysSales(res, null);
+        var data = main.filterOption();
+        var match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: false}},
+            match2 = {$match: {date: {$gte: data.start, $lt: data.end}, credit: true}};
+
+        ReportController.listOfReportByFilter(res, match, match2);
     }
 
 });
@@ -52,10 +56,7 @@ router.get('/getContentByFilter', function (req, res) {
             var match = {$match: {credit: false}}, match2 = {$match: {credit: true}};
             ReportController.listOfReportByFilter(res, match, match2);
 
-        }else if (req.query.option == 'today'){
-            ReportController.listOfTodaysSales(res, null);
-
-        } else {
+        }else {
             var data = main.filterOption(req.query.option);
             match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: false}};
             match2 = {$match: {date: {$gte: data.start, $lt: data.end}, credit: true}};

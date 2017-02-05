@@ -553,13 +553,16 @@ input[name="remember"]{
     font-size: 20px;
 }
 
-#userInfo a{
+#userInfo{
     color: #003f7b;
     position: absolute;
-    top: 60px;
-    left: 90%;
-    font-size: 20px;
+    top: 25px;
+    left: 89%;
+    font-size: 15px;
+    line-height: 17px;
 }
+
+#userInfo a{ color: #003f7b; }
 
 #userInfo a:hover{
     color: #00B7FF;
