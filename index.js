@@ -15,7 +15,7 @@ app.set('views', __dirname + '/views');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
+app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb',extended: true }));
 app.use(bodyParser.json());
@@ -66,4 +66,4 @@ app.use(function (err, req, res, next) {
 module.exports = app;
 
 console.log('Server has runned at port 1337');
-app.listen(1337);
+// app.listen(1337);
