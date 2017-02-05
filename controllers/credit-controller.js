@@ -25,7 +25,7 @@ module.exports = {
                 }
 
                 Sale.creditCount(function (record) {
-                    var list3 = main.pageCounter(p, record[0].count);
+                    var list3 = main.pageCounter(p, record.length);
                     res.render('credits', { coming: list, page: list3});
                 });
             }else {

@@ -51,7 +51,6 @@ module.exports = {
     creditCount: function (callback) {
         saleModel.aggregate(
             {$match: { credit: true}},
-            {$count: "count"},
             (function (err, count){
                 if (err) throw err;
                 callback(count);
