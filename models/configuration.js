@@ -3,7 +3,7 @@
  */
 var mongoose = require("mongoose");
 
-var connStr = "localhost:27017/Pharmacy";
+var connStr = "mongodb://Jahongir:Jaxa9696@ds139959.mlab.com:39959/veterinarypharmacy";
 
 mongoose.Promise = global.Promise;
 mongoose.connect(connStr, function(err) {
