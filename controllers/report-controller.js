@@ -19,56 +19,63 @@ setInterval(function () {
     var match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: false}};
     Report.createReportForToday(match, function(coming) {
         if (coming){
-            var report = new Report.model({
-                date: main.dateConverter(coming[i].date),
-                name: coming[i].medicine,
-                quantity: coming[i].quantity,
-                price: coming[i].price,
-                totalSum: coming[i].totalSum,
-                credit: false
-            });
+            for (var i=0; i < coming.length; i++){
+                var report = new Report.model({
+                    date: main.dateConverter(coming[i].date),
+                    name: coming[i].medicine,
+                    quantity: coming[i].quantity,
+                    price: coming[i].price,
+                    totalSum: coming[i].totalSum,
+                    credit: false
+                });
 
-            report.save(function (err) {
-                if (err) throw err;
-            });
+                report.save(function (err) {
+                    if (err) throw err;
+                });
+            }
 
             match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: true, payed: true}};
             Report.createReportForToday(match, function(coming) {
-                if (coming) {
-                    var report = new Report.model({
-                        date: main.dateConverter(coming[i].date),
-                        name: coming[i].medicine,
-                        quantity: coming[i].quantity,
-                        price: coming[i].price,
-                        totalSum: coming[i].totalSum,
-                        credit: false
-                    });
+                if (coming){
+                    for (var i=0; i < coming.length; i++){
+                        var report = new Report.model({
+                            date:  main.dateConverter(coming[i].date),
+                            name: coming[i].medicine,
+                            quantity: coming[i].quantity,
+                            price: coming[i].price,
+                            totalSum: coming[i].totalSum,
+                            credit: false
+                        });
 
-                    report.save(function (err) {
-                        if (err) throw err;
-                    });
+                        report.save(function (err) {
+                            if (err) throw err;
+                        });
+                    }
 
                     match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: true, payed: false}};
-                    Report.createReportForToday(match, function (coming) {
-                        if (coming) {
-                            var report = new Report.model({
-                                date: main.dateConverter(coming[i].date),
-                                name: coming[i].medicine,
-                                quantity: coming[i].quantity,
-                                price: coming[i].price,
-                                totalSum: coming[i].totalSum,
-                                credit: true
-                            });
+                    Report.createReportForToday(match, function(coming) {
+                        if (coming){
 
-                            report.save(function (err) {
-                                if (err) throw err;
-                            });
+                            var list2 = [], totalSumC = 0, totalQuantityC = 0;
+                            for (var i=0; i < coming.length; i++){
+
+                                var report = new Report.model({
+                                    date:  main.dateConverter(coming[i].date),
+                                    name: coming[i].medicine,
+                                    quantity: coming[i].quantity,
+                                    price: coming[i].price,
+                                    totalSum: coming[i].totalSum,
+                                    credit: true
+                                });
+
+                                report.save(function (err) {
+                                    if (err) throw err;
+                                });
+                            }
                         }
                     });
                 }
             });
-        }else {
-            res.json({message: "error"});
         }
     });
 }, 60 * 60 * 1000);
