@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
                     }else{
                         signIn.hide(600);
                         content.html(json);
-                        // content.css("height", "0px");
+                        content.css("height", "0px");
                         scriptForMenu();
                     }
                 },
@@ -179,7 +179,7 @@ jQuery(document).ready(function() {
         setInterval('setDate();', 1000);
         var linkOfMenu = $('#menu a'),
             contentMedicines = $('#contentBody');
-            content.css("height", "0px");
+            // content.css("height", "0px");
 
         function getContent(href) {
             loading.removeClass('hidden');

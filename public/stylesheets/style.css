@@ -6,7 +6,7 @@ body{
 
 #bodyLayout{
     width: 98%;
-    background-color: rgba(238,238,238,0.8);
+    /*background-color: rgba(238,238,238,0.8);*/
     background-size: cover;
     border-radius: 25px;
     margin: 10px auto;
@@ -171,17 +171,16 @@ figure #img-search{ width: 30px;}
 
 #search input[type="search"] {
     padding: 10px 15px;
-    border: 2px solid #217CC3;
-    border-radius: 25px;
+    border: 2px solid #2196f3;
+    border-radius: 5px;
     color: #23252b;
-    height: 35px;
+    height: 40px;
     outline: none;
     width: 900px;
     transition: width 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.1s;
     position: relative;
     right: 7px;
 }
-
 
 #template_table #table_header,
 #template_table #headerReport

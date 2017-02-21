@@ -18,7 +18,7 @@ setInterval(function () {
 
     var match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: false}};
     Report.createReportForToday(match, function(coming) {
-        if (coming){
+        if (coming && coming.length > 0){
             for (var i=0; i < coming.length; i++){
                 var report = new Report.model({
                     date: main.dateConverter(coming[i].date),
@@ -56,7 +56,6 @@ setInterval(function () {
                     Report.createReportForToday(match, function(coming) {
                         if (coming){
 
-                            var list2 = [], totalSumC = 0, totalQuantityC = 0;
                             for (var i=0; i < coming.length; i++){
 
                                 var report = new Report.model({
