@@ -14,7 +14,7 @@ var Medicine = require("../models/medicines"),
 router.get('/getContent', function (req, res) {
 
     if(req.query.content == 'medicines'){
-        MedicineController.listOfMedicines(req, res);
+        MedicineController.listOfMedicines(res);
     }else if (req.query.content == 'comings'){
         ComingController.listOfComings(res);
     }else if (req.query.content == 'sales'){

@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
                     }else{
                         signIn.hide(600);
                         content.html(json);
-                        content.css("height", "0px");
+                        middleForm("#bodyLayout");
                         scriptForMenu();
                     }
                 },
@@ -92,7 +92,16 @@ jQuery(document).ready(function() {
         exit.onclick = function () {windowDefault.hide(300);}
     }
 
-    if (document.cookie){
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    // console.log(getCookie('remember'));
+
+    if (getCookie('remember')){
         scriptForMenu();
     }
 
@@ -179,7 +188,7 @@ jQuery(document).ready(function() {
         setInterval('setDate();', 1000);
         var linkOfMenu = $('#menu a'),
             contentMedicines = $('#contentBody');
-            // content.css("height", "0px");
+            content.css("height", "0px");
 
         function getContent(href) {
             loading.removeClass('hidden');
@@ -222,7 +231,11 @@ jQuery(document).ready(function() {
     }
 
     function medicineContent() {
-        delChangeIcons('settingsOfMedicine','#contentBody');
+        var role = $("#role")[0].innerText;
+        if (role == 'admin'){
+            delChangeIcons('settingsOfMedicine','#contentBody');
+        }
+
         var searchForm = $('form[name="search"]'),
             searchText = $('input[name="query"]');
         var medicinePhotos = document.getElementsByClassName('photos'), arrHeights = [];
@@ -284,22 +297,20 @@ jQuery(document).ready(function() {
 
     function isValidComingForm(e, form) {
         var optionFound = false,
-            input = document.querySelectorAll('input[list]')[0], ID, remainder = 0,
-            datalist =  input.list;
-        var quantity = $('input[name="quantity"]');
+            input = document.getElementById("medicines"), ID, remainder = 0,
+            quantity = $('input[name="quantity"]'),
+            selected = input.options.selectedIndex;
 
-        for (var j = 0; j < datalist.options.length; j++) {
-            if (input.value == datalist.options[j].value) {
-                optionFound = true;
-                ID = datalist.options[j].previousSibling.innerText;
-                if (form == "sales"){
-                    remainder = datalist.options[j].nextSibling.innerText;
-                }
-                break;
+        if (selected != undefined && selected != 0){
+            optionFound = true;
+            ID = input.options[selected].value;
+            console.log(ID);
+            if (form == "sales"){
+                remainder = Number(input.options[selected].nextSibling.textContent);
             }
         }
 
-        if (optionFound) {
+        if (optionFound){
             input.setCustomValidity('');
             if (!quantity.val() || quantity.val() == "" || quantity.val() == " "){
                 quantity.get(0).setCustomValidity('Поля не можеть быть пустым');
@@ -411,19 +422,12 @@ jQuery(document).ready(function() {
             else {creditDesc.addClass("hidden");}
         });
 
-        var input = document.querySelectorAll('input[list]')[0], remainder = 0;
-        input.onchange = function () {
-            var datalist = this.list, quantity = $('input[name="quantity"]');
-            for (var j = 0; j < datalist.options.length; j++) {
-                if (this.value == datalist.options[j].value) {
-                    remainder = datalist.options[j].nextSibling.innerText;
-                    quantity.attr("placeholder", "Max: " + remainder);
-                    break;
-                }else{
-                    quantity.attr("placeholder", "Max: ");
-                }
-            }
-        };
+        var input = $('#medicines'), remainder = 0;
+        input.on('change', function () {
+            var selected = this.options.selectedIndex, quantity = $('input[name="quantity"]');
+            remainder = this.options[selected].nextSibling.textContent;
+            quantity.attr("placeholder", "Max: " + remainder);
+        });
 
         var totals = $('.summa');
         for (var i=0; i < totals.length; i++){
@@ -456,6 +460,7 @@ jQuery(document).ready(function() {
 
             if (cond){
                 var data = isValidComingForm(e, "sales");
+                console.log(data);
                 if (data){
                     query += "&id=" + data.id + "&date=" + Date.now() + "&quantity=" + data.quantity;
                     loading.removeClass('hidden');
@@ -640,11 +645,6 @@ jQuery(document).ready(function() {
             };
 
         }
-
-        // var imgSettings = document.getElementById('img-settings');
-        // imgSettings.onmouseover = function (){this.setAttribute("src","images/settings_hover.png");};
-        // imgSettings.onmouseout = function (){this.setAttribute("src","images/settings.png");};
-
     }
 
     function removeRecord ( from, table, e){
@@ -742,8 +742,10 @@ jQuery(document).ready(function() {
 
             if (updateBtn == '#updateComing'){
                 $('#addNewComing').addClass('hidden');
+                var regex = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/;
             }else {
                 $('#addNewSale').addClass('hidden');
+                regex = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})[\s](\d{2})[:](\d{2})$/;
                 var creditDescText = tr.children[4].firstElementChild.innerText,
                     credit = tr.children[4].children[2].innerText,
                     payed = tr.children[4].children[3].innerText;
@@ -764,7 +766,7 @@ jQuery(document).ready(function() {
                 }
             }
 
-            var matches = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})[\s](\d{2})[:](\d{2})$/.exec(upDate);
+            var matches = regex.exec(upDate);
             if (matches == null) return false;
             var d = matches[1], m = matches[2], y = matches[3];
 

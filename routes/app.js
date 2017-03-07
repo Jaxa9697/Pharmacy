@@ -41,18 +41,18 @@ router.get('/', function(req, res){
     }
 });
 
-// var testUser = new User({
-//     username: "User",
-//     password: "‎988880528",
-//     roles: "user"
-// });
-//
-// // save user to database
-//     testUser.save(function(err) {
-//         if (err) throw err;
-//     });
-
 router.get('/signIn', function (req, res) {
+
+    //     var testUser = new User({
+    //         username: "User",
+    //         password: 988880528,
+    //         roles: "user"
+    //     });
+    //
+    // // save user to database
+    //     testUser.save(function(err) {
+    //         if (err) throw err;
+    //     });
 
     User.findOne({ username: req.query.username }, function(err, user) {
         if (err)  throw err;
@@ -87,7 +87,6 @@ router.get('/signIn', function (req, res) {
             res.json({message: "error"});
         }
     });
-    // });
 
 });
 

@@ -25,12 +25,12 @@
                     <input type="date" readonly name="date" title="" form="addSale">
                 </td>
                 <td>
-                    <input type="text" list="medicines" name="medicines" title="" form="addSale">
-                    <datalist id="medicines">
+                    <select title="" id="medicines" form="addSale">
+                        <option></option>
                         {{#each medicine}}
-                            <p class="hide">{{id}}</p><option>{{name}}</option><p class="hide">{{remainder}}</p>
+                            <option value="{{id}}">{{name}}</option><p class="hide">{{remainder}}</p>
                         {{/each}}
-                    </datalist>
+                    </select>
                 </td>
                 <td class="numberField">
                     <input type="number" name="quantity" placeholder="Max: " title="" form="addSale">

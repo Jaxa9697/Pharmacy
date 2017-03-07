@@ -6,7 +6,7 @@ body{
 
 #bodyLayout{
     width: 98%;
-    /*background-color: rgba(238,238,238,0.8);*/
+    background-color: rgba(238,238,238,0.5);
     background-size: cover;
     border-radius: 25px;
     margin: 10px auto;
@@ -81,7 +81,7 @@ body{
 .headerFixed {
     position: fixed;
     padding-top: 0;
-    left: 35%;
+    left: 38%;
 }
 
 .headerFixed h1{
@@ -296,7 +296,7 @@ table{
     background-color: #535353;
 }
 
-#comingsForm input{
+#comingsForm input, #comingsForm select{
     height: 37px !important;
     vertical-align: middle;
     /*background: #f8f8f8;*/
@@ -320,7 +320,7 @@ table{
     color: #888;
 }
 
-#comingsForm input[list]{ width: 70%; }
+#comingsForm select#medicines{ width: 70%; }
 
 #comingsForm input[name="date"]{ width: 80%; }
 

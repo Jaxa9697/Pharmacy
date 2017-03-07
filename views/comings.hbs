@@ -24,12 +24,12 @@
                     <input type="date"  name="date"  title="" form="addComing">
                 </td>
                 <td>
-                    <input type="text" list="medicines" name="medicines" title="" form="addComing">
-                    <datalist id="medicines">
+                    <select title="" id="medicines" form="addComing">
+                        <option></option>
                         {{#each medicine}}
-                            <p class="hide">{{id}}</p><option>{{name}}</option>
+                            <option value="{{id}}">{{name}}</option>
                         {{/each}}
-                    </datalist>
+                    </select>
                 </td>
                 <td class="quanCom">
                     <input type="number"  name="quantity" title="" form="addComing">

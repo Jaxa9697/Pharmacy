@@ -5,15 +5,10 @@ var Medicine = require("../models/medicines");
 
 module.exports = {
 
-    listOfMedicines: function (req, res) {
+    listOfMedicines: function (res) {
         Medicine.getAll( function(medicine) {
             if (medicine){
                 var list = [];
-                var admin = false;
-
-                if (req.session.userStatus == "admin"){
-                    admin = true;
-                }
 
                 for (var i=0; i < medicine.length; i++){
                     if (!medicine[i].deleted){
@@ -23,13 +18,12 @@ module.exports = {
                             photo: medicine[i].photo,
                             price: medicine[i].price,
                             remainder: Math.floor(medicine[i].remainder),
-                            id: medicine[i]._id,
-                            admin: admin
+                            id: medicine[i]._id
                         });
                     }
                 }
 
-                res.render('medicines', {medicine: list, admin: admin});
+                res.render('medicines', {medicine: list});
             }else {
                 res.json({message: "error"});
             }
