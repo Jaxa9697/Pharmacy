@@ -21,7 +21,7 @@ module.exports = {
                     from: "medicines", localField: "IdMedicine", foreignField: "_id", as: "medicine"
             }},
             {$project: {
-                _id: 1, date: 1, quantity: 1, medicine:{ name: 1 }, totalSum: 1, creditDesc: 1, credit: 1, payed: 1
+                _id: 1, date: 1, quantity: 1, medicine:{ name: 1 }, totalSum: 1
             }},
             { $sort : { date: -1}},
             { $limit: (page - 1)*15 + 15 },
@@ -31,6 +31,7 @@ module.exports = {
             callback(sales);
         }));
     },
+
     getAllCredits: function (page, callback) {
         saleModel.aggregate(
             {$match: { credit: true}},
@@ -48,6 +49,22 @@ module.exports = {
                 callback(sales);
             }));
     },
+
+    getCreditById: function (ID, callback) {
+        saleModel.aggregate(
+            {$match: { _id: ID}},
+            {$lookup: {
+                from: "medicines", localField: "IdMedicine", foreignField: "_id", as: "medicine"
+            }},
+            {$project: {
+                _id: 1, date: 1, quantity: 1, medicine:{ name: 1 }, totalSum: 1, credit: 1, payed: 1
+            }},
+            (function (err, sales){
+                if (err) throw err;
+                callback(sales);
+            }));
+    },
+
     creditCount: function (callback) {
         saleModel.aggregate(
             {$match: { credit: true}},
@@ -56,6 +73,7 @@ module.exports = {
                 callback(count);
             }));
     },
+
     getById: function (id, callback) {
         saleModel.findById( id,(function (err, medicine){
             if (err) throw err;

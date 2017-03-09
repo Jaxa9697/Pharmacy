@@ -8,6 +8,7 @@ var Medicine = require("../models/medicines"),
     SaleController = require("../controllers/sale-controller"),
     Sale = require("../models/sales"),
     CreditController = require("../controllers/credit-controller"),
+    ReportController = require("../controllers/report-controller"),
     main =  require("../controllers/common-functions"),
     router = require("./app"),
     mongoose = require('mongoose');
@@ -106,6 +107,8 @@ router.put('/update', function (req, res) {
         if (req.query.payed == "false" || !req.query.payed) data.payed = false;
 
         Sale.update(ID, data,function () {
+            var id = mongoose.Types.ObjectId(ID);
+            if (req.query.payed == "true") ReportController.createReportPayedCredit(id);
             CreditController.listOfCredits(res);
         });
     }
