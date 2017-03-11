@@ -6,10 +6,12 @@ var express = require('express'),
 
 router.get('/', function(req, res){
     if (req.cookies.remember){
-        // console.log(req.session);
         User.findById(req.session.username, function (err, user) {
-            if (err) {
-                res.send("Error.There is no any user!");
+            if (err || user == !undefined || !user || user == null) {
+                res.clearCookie('remember');
+                res.clearCookie('session');
+                res.clearCookie('session.sig');
+                res.redirect('/');
             }else {
                 res.cookie('remember', 1, {maxAge: 7*24*60*60*1000});
                 req.session.authorized = true;

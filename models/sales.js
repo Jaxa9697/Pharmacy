@@ -21,7 +21,7 @@ module.exports = {
                     from: "medicines", localField: "IdMedicine", foreignField: "_id", as: "medicine"
             }},
             {$project: {
-                _id: 1, date: 1, quantity: 1, medicine:{ name: 1 }, totalSum: 1
+                _id: 1, date: 1, quantity: 1, medicine:{ name: 1 }, totalSum: 1,creditDesc: 1, credit: 1, payed: 1
             }},
             { $sort : { date: -1}},
             { $limit: (page - 1)*15 + 15 },
@@ -80,18 +80,21 @@ module.exports = {
             callback(medicine);
         }));
     },
+
     delete: function (id, callback) {
         saleModel.remove({"_id": id},(function (err){
             if (err) throw err;
             callback();
         }));
     },
+
     update: function (id, data, callback) {
         saleModel.findByIdAndUpdate(id,{$set: data},(function (err){
             if (err) throw err;
             callback();
         }));
     },
+
     getByFilter: function (start, end, callback) {
         saleModel.aggregate(
             {$match: {
@@ -109,12 +112,14 @@ module.exports = {
             callback(sale);
         }));
     },
+
     count: function (callback) {
         saleModel.count(function (err, count) {
             if (err) throw err;
             callback(count);
         });
     },
+
     model: saleModel
 };
 /**

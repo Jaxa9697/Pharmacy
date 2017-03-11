@@ -304,7 +304,6 @@ jQuery(document).ready(function() {
         if (selected != undefined && selected != 0){
             optionFound = true;
             ID = input.options[selected].value;
-            console.log(ID);
             if (form == "sales"){
                 remainder = Number(input.options[selected].nextSibling.textContent);
             }
@@ -460,7 +459,6 @@ jQuery(document).ready(function() {
 
             if (cond){
                 var data = isValidComingForm(e, "sales");
-                console.log(data);
                 if (data){
                     query += "&id=" + data.id + "&date=" + Date.now() + "&quantity=" + data.quantity;
                     loading.removeClass('hidden');

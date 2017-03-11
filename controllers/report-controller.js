@@ -5,24 +5,29 @@ var main = require("./common-functions"),
     Report = require("../models/reports"),
     Credit = require("../models/sales");
 
+var ONE_HOUR = 60 * 60 * 1000;
 
 setInterval(function () {
-    // var data = main.filterOption();
-    var start = new Date(Date.now());
-    start.setMinutes(0,0,0);
+    var myDate = new Date(Date.now());
+    var one_our_ago = new Date(myDate.getTime() - ONE_HOUR);
+
+    var start = new Date(one_our_ago);
     var end = new Date(Date.now());
-    end.setMinutes(59,59,999);
+    // var start = new Date(2017,2,12,0,0,0,0),
+    //     end = new Date(2017,2,12,23,59,59,999);
     var data = {
         start: start,
         end: end
     };
 
+    // var date = main.dateConverter(coming[i].date);
+    var date = new Date(Date.now());
     var match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: false}};
     Report.createReportForToday(match, function(coming) {
         if (coming && coming.length > 0){
             for (var i=0; i < coming.length; i++){
                 var report = new Report.model({
-                    date: main.dateConverter(coming[i].date),
+                    date: date,
                     name: coming[i].medicine,
                     quantity: coming[i].quantity,
                     price: coming[i].price,
@@ -40,12 +45,12 @@ setInterval(function () {
                 if (coming){
                     for (var i=0; i < coming.length; i++){
                         var report = new Report.model({
-                            date:  main.dateConverter(coming[i].date),
+                            date:  date,
                             name: coming[i].medicine,
                             quantity: coming[i].quantity,
                             price: coming[i].price,
                             totalSum: coming[i].totalSum,
-                            credit: false
+                            credit: true
                         });
 
                         report.save(function (err) {
@@ -60,7 +65,7 @@ setInterval(function () {
                             for (var i=0; i < coming.length; i++){
 
                                 var report = new Report.model({
-                                    date:  main.dateConverter(coming[i].date),
+                                    date: date,
                                     name: coming[i].medicine,
                                     quantity: coming[i].quantity,
                                     price: coming[i].price,
@@ -78,7 +83,7 @@ setInterval(function () {
             });
         }
     });
-}, 60 * 60 * 1000);
+}, ONE_HOUR);
 
 module.exports = {
     createReportPayedCredit: function (ID) {

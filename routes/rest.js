@@ -130,12 +130,9 @@ router.post('/addComing', function (req, res) {
     });
 });
 
-router.post('/addSale', function (req, res) {
+router.post('/addSale', function (req, res){
 
     var id = mongoose.Types.ObjectId(req.query.id);
-
-    console.log(id);
-    console.log(req.query);
 
     Medicine.getById(id, function (medicine) {
         var newComing = new Sale.model({
