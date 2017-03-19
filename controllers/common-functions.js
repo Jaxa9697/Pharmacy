@@ -64,7 +64,7 @@ module.exports = {
         var day = date.getDate(),
             month = date.getMonth() + 1,
             year = date.getFullYear(),
-            hour = date.getHours() + 10,
+            hour = date.getHours(),
             minute = date.getMinutes();
 
         if (month < 10){month = '0' + month;}

@@ -137,7 +137,7 @@ router.post('/addSale', function (req, res){
     Medicine.getById(id, function (medicine) {
         var newComing = new Sale.model({
             IdMedicine: id,
-            date: req.query.date,
+            date: new Date(Date.now() + 9*60*60*1000),
             quantity: req.query.quantity,
             totalSum: req.query.quantity * medicine.price
         });

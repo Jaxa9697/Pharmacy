@@ -8,11 +8,11 @@ var main = require("./common-functions"),
 var ONE_HOUR = 60 * 60 * 1000;
 
 setInterval(function () {
-    var myDate = new Date(Date.now());
+    var myDate = new Date(Date.now() + 9*60*60*1000);
     var one_our_ago = new Date(myDate.getTime() - ONE_HOUR);
 
     var start = new Date(one_our_ago);
-    var end = new Date(Date.now());
+    var end = new Date(Date.now() + 9*60*60*1000);
     // var start = new Date(2017,2,12,0,0,0,0),
     //     end = new Date(2017,2,12,23,59,59,999);
     var data = {
@@ -89,7 +89,7 @@ module.exports = {
     createReportPayedCredit: function (ID) {
         Credit.getCreditById(ID, function (coming) {
             var report = new Report.model({
-                date: main.dateConverter(Date.now()),
+                date: main.dateConverter(Date.now() + 9*60*60*1000),
                 name: coming[0].medicine[0].name,
                 quantity: coming[0].quantity,
                 price: coming[0].totalSum/coming[0].quantity,
