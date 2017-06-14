@@ -1,6 +1,6 @@
 {
-  "name": "med_test",
-  "version": "1.0.0",
+  "name": "Pharmacy",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "start": "node index"

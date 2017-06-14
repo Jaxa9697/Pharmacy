@@ -21,10 +21,12 @@ setInterval(function () {
     };
 
     // var date = main.dateConverter(coming[i].date);
-    var date = new Date(Date.now());
+    var date = new Date(Date.now() + 9*60*60*1000);
+    console.log("Report create from " + data.start + " to " + data.end);
     var match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: false}};
     Report.createReportForToday(match, function(coming) {
         if (coming && coming.length > 0){
+            console.log(coming);
             for (var i=0; i < coming.length; i++){
                 var report = new Report.model({
                     date: date,
@@ -43,6 +45,7 @@ setInterval(function () {
             match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: true, payed: true}};
             Report.createReportForToday(match, function(coming) {
                 if (coming){
+                    console.log(coming);
                     for (var i=0; i < coming.length; i++){
                         var report = new Report.model({
                             date:  date,
@@ -61,7 +64,7 @@ setInterval(function () {
                     match = {$match: {date: {$gte: data.start, $lt: data.end}, credit: true, payed: false}};
                     Report.createReportForToday(match, function(coming) {
                         if (coming){
-
+                            console.log(coming);
                             for (var i=0; i < coming.length; i++){
 
                                 var report = new Report.model({

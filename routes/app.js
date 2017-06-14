@@ -2,8 +2,6 @@ var express = require('express'),
     router = express.Router(),
     User = require("../models/users");
 
-
-
 router.get('/', function(req, res){
     if (req.cookies.remember){
         User.findById(req.session.username, function (err, user) {
@@ -66,7 +64,7 @@ router.get('/signIn', function (req, res) {
                     res.json({message: "error"});
                 }else{
                     if (err) throw err;
-                    if (req.query.remember == 'true'){
+                    if (req.query.remember === 'true'){
                         res.cookie('remember', 1, {maxAge: 7*24*60*60*1000});
                         req.session.authorized = true;
                         req.session.username = user._id;
@@ -75,7 +73,7 @@ router.get('/signIn', function (req, res) {
                     }
 
                     var admin = false;
-                    if (user.roles == "admin"){ admin = true;}
+                    if (user.roles === "admin"){ admin = true;}
 
                     res.render('header', {admin: admin},
                         function (err, header) {
